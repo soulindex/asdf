@@ -1,0 +1,86 @@
+
+<?php ob_start(); ?>
+<div class="hed">
+			<h1>Админитсратирование странички</h1>
+	</div>
+<div>
+	<form action="/Project/index.php/recipe/addingredient" method="post" name="add_ingredient">
+    <h2>Редактирование рецепта</h2>
+		<table class="form">
+			<tr>
+				<td><h3>Добавить ингридиент</h3></td>
+			</tr>
+			<tr>
+				<input type="hidden" name="add_Id_bludo" value="<?php echo $_REQUEST['id']; ?>">
+				<td>Ингридиент <input type="text" name="add_Id_product"></td>
+				<td>Количество</td>
+				<td><input type="text" name="add_Kolvo"></td>
+				<td><input class="button" type="reset" name="reset" value="Очистить"></td>
+				<td><input class="button" type="submit" name="submit" value="Добавить"></td>
+			</tr>
+		</table>
+	</form>
+</div>
+<hr>
+<h2>Список ингридиентов</h2>
+<?php foreach ($rows as $row)
+{	
+	if(isset($_REQUEST['id']))
+	{
+		if($row['Id_bludo']==$_REQUEST['id'])
+		{
+			echo $row['Bludo_name'];
+		}
+	}
+
+
+}
+?><div class="formR">
+
+
+<?php foreach ($rowsd as $rowd):?>
+<?php if ($rowd['Id_bludo']==$_REQUEST['id'])
+{ ?>
+<form action="/Project/index.php/recipe/updaterecipe" method="post" name="update_ingredient">
+<table >
+	<tr>
+		<input type="hidden" name="Id_page" value="<?php echo $_REQUEST['id'];?>">
+		<input type="hidden" name="update_Id" value="<?php echo $rowd['Id'];?>">
+		<input type="hidden" name="update_Id_bludo" value="<?php echo $rowd['Id_bludo'];?>">
+		<td><?php foreach ($rowsp as $rowp)
+		{
+			if($rowd['Id_product']==$rowp['Id_product'])
+			{?>
+				<input type="hidden" name="update_Id_produkt" value="<?php echo $rowp['Id_product'];?>">
+				<input type="text" readonly name="update_Name_produkt" value="<?php echo $rowp['Name_produkt'];?>">
+				
+				<?php
+			}
+		}
+			echo " - ";	?>
+		</td>
+		<td><input type="text" name="update_Kolvo" value="<?php echo $rowd['Kolvo'];?>"></td>
+		<td><input class="button" type="submit" name="submit" value="Изменить"></td>
+
+		<td>
+			
+			<a href="'.$_SERVER['PHP_SELF'].'?page='.$page.'&id_o='.$row1[0].'">
+
+			<a href="/Project/index.php/recipe/delete?id=<?php echo $rowd['Id'];?>&page=<?php echo $_REQUEST['id'];?>"><input class="button" type="button" name="delete" value="Удалить"></a>
+		</td>
+	</tr>
+</table>
+</form>
+
+<?php 
+}
+endforeach; ?>
+
+
+</div>
+
+<?php $content=ob_get_clean();?>
+
+<?php include 'view/template/product/layout.php'; ?>
+
+

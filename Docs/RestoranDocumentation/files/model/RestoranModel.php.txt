@@ -1,0 +1,10 @@
+<?php
+Class RestoranModel extends Dbh
+{
+	public function RestoranModel()
+	{
+		parent::Dbh('bludo');
+	}
+}
+
+?>

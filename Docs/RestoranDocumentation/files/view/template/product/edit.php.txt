@@ -1,0 +1,55 @@
+
+<?php ob_start(); ?>
+			<h1>Админитсратирование странички<h1>
+
+<form action="/Project/index.php/product/update" method="post" name="add form">
+	<table>
+	<tr>
+		<td>ID:</td>
+		<td><input type="text" name="Id_product" value="<?php echo $row ['Id_product']?>"></td>
+	</tr>
+	<tr>
+		<td>Имя продукта:</td>
+		<td><input type="text" name="update_Name_produkt" value="<?php echo $row ['Name_produkt']?>"></td>
+	</tr>
+	<tr>
+		<td>Количество:</td>
+		<td><input type="text" name="update_Kolichestvo" value="<?php echo $row ['Kolichestvo']?>"></td>
+	</tr>
+	<tr>
+		<td>Калории:</td>
+		<td><input type="text" name="update_Kalorii" value="<?php echo $row ['Kalorii']?>"></td>
+	</tr>
+	<tr>
+		<td>Подкатегория:</td>
+		<td><input type="text" name="update_Id_podacategory" value="<?php echo $row ['Id_podacategory']?>"></td>
+	</tr>
+	<tr>
+		<td>Срок поставки:</td>
+		<td><input type="text" name="update_Srok_postavki" value="<?php echo $row ['Srok_postavki']?>"></td>
+	</tr>
+	<tr>
+		<td>Срок годности:</td>
+		<td><input type="text" name="update_Srok_godnosty" value="<?php echo $row ['Srok_godnosty']?>"></td>
+	</tr>
+	<tr>
+		<td>Срок реализации:</td>
+		<td><input type="text" name="update_Srok_realisats" value="<?php echo $row ['Srok_realisats']?>"></td>
+	</tr>
+	<tr>
+		<td>Условия:</td>
+		<td><input type="text" name="update_Uslovia" value="<?php echo $row ['Uslovia']?>"></td>
+	</tr>
+	<tr>
+		<td>Поставщик:</td>
+		<td><input type="text" name="update_Id_postavshik" value="<?php echo $row ['Id_postavshik']?>"></td>
+	</tr>
+	<tr>
+		<td><input type="reset" name="reset" value="Очистить"></td>
+		<td><input type="submit" name="submit" value="Изменить"></td>
+	</tr>
+	</table>
+</form>
+<?php $content=ob_get_clean();?>
+
+<?php include 'view/template/product/layout.php'; ?>

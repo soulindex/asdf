@@ -1,0 +1,66 @@
+<?php ob_start(); ?>
+<div class="hed">
+			<h1>Админитсратирование странички</h1>
+	</div>
+<td><a href="/Project/index.php/dish/createdish" class="add">+ Создать блюдо</a></td> 
+<h2>Список блюд</h2>
+<?php foreach ($rows as $row)
+      if($row['Visible']==1)
+      {
+        ?>
+     
+          <table class="dish">
+          <tr>
+              <td><h3><?php echo $row['Bludo_name'];?></h3></td>
+              <td></td>
+              <td?></td>
+            </tr>
+          
+            <tr>
+              <td><img class="eda" src="../../img/eda/<?php echo $row['Image']; ?>"></td>
+              <td>Ингридиенты:<br>  
+			  <?php foreach ($rowsd as $rowd)
+              {
+                if($row['Id_bludo']==$rowd['Id_bludo'])
+                {
+                  foreach ($rowsp as $rowp)
+                  {
+                    if($rowp['Id_product']==$rowd['Id_product'])
+                    {
+                    echo $rowp['Name_produkt'];
+                    }
+                  }
+                echo " - ";
+                echo $rowd['Kolvo'];
+                echo ", <br>";
+
+                }
+              }
+              ?>
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr>
+              <td>&nbsp;</td>
+              <td>Каллорийность блюда:  <?php echo $row['Calorii'];?></td>
+              <td class="price"><?php echo $row['Price'];?></td>
+            </tr>
+            <tr>
+              <td> </td>
+              <td> </td>
+              <td> </td>
+            </tr>
+            <tr>
+              <td><a class="button" href="/Project/index.php/dish/editdish?id=<?php echo $row['Id_bludo'];?>">Редактирование</a></td>
+              <td><a class="button" href="/Project/index.php/recipe/editrecipe?id=<?php echo $row['Id_bludo'];?>">Изменить рецепт</a></td>
+              <td><a class="button" href="/Project/index.php/dish/delete?id=<?php echo $row['Id_bludo'];?>">Удалить блюдо</a></td>
+            </tr>
+          </table>
+       
+<?php
+}
+
+?>
+
+<?php $content=ob_get_clean();?>
+<?php include 'view/template/product/layout.php'; ?>

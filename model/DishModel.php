@@ -1,0 +1,93 @@
+<?php
+/**
+ *DishModel
+ *
+ *Класс DishModel содержит функции используемые в контроллере DishControllers
+ */
+Class DishModel extends Dbh
+{
+	/**
+ 	*function DishModel
+ 	*
+ 	*инициирует значение динамической перменной rows
+ 	*/
+	public function DishModel()
+	{
+		parent::Dbh('bludo');
+	}
+	/**
+ 	*delete_rows
+ 	*
+ 	*удаляет строку в таблице bludo в зависимости от передоваемой $id_bludo
+ 	*/
+	public function delete_rows($Id_bludo)
+	{
+		$sql = "DELETE FROM bludo WHERE Id_bludo= ?";
+		$stmt=$this->getDbh()->prepare($sql);
+		$stmt->execute([$Id_bludo]);
+		header('Location: http://localhost/Project/index.php/dish/dish');
+  		exit;
+		return;
+	}
+	/**
+ 	*update_dish
+ 	*
+ 	*изменяет значение ячеек в таблице bludo
+ 	*/	
+	public function update_dish()
+	{
+
+		$Id_bludo=$_REQUEST['Id_bludo'];
+		$update_Bludo_name=$_REQUEST['update_Bludo_name'];
+		$update_Id_razdel=$_REQUEST['update_Id_razdel'];
+		$update_Calorii=$_REQUEST['update_Calorii'];
+		$update_Price=$_REQUEST['update_Price'];
+
+		$sql ="UPDATE `bludo` SET `Bludo_name`=?, `Id_razdel`=?, `Calorii`=?, `Price`=? WHERE `Id_bludo`=?";
+
+		$stmt=$this->getDbh()->prepare($sql);
+		$stmt->execute(array($update_Bludo_name, $update_Id_razdel, $update_Calorii , $update_Price, $Id_bludo));
+		header('Location: http://localhost/Project/index.php/dish/editdish?id='.$Id_bludo);
+  		exit;
+	}
+	/**
+ 	*add_dish
+ 	*
+ 	*добовляет новую строку в таблице bludo и заполняет её значениями
+ 	*/	
+	public function add_dish()
+	{
+		echo $_REQUEST['create_Bludo_name'];
+		echo $_REQUEST['create_Id_razdel'];
+		echo $_REQUEST['create_Calorii'];
+		echo $_REQUEST['create_Price'];
+
+		if(!empty($_REQUEST['create_Bludo_name'])
+			AND !empty($_REQUEST['create_Id_razdel'])
+				AND !empty($_REQUEST['create_Calorii'])
+					AND !empty($_REQUEST['create_Price']))
+					{
+						echo"gra1";
+						$create_Bludo_name=$_REQUEST['create_Bludo_name'];
+						$create_Id_razdel=$_REQUEST['create_Id_razdel'];
+						$create_Calorii=$_REQUEST['create_Calorii'];
+						$create_Price=$_REQUEST['create_Price'];
+						$create_Image="bm1.jpg";
+						$create_Visible="1";
+						$sql = "INSERT INTO bludo(`Bludo_name`, `Id_razdel`, `Calorii`, `Price`, `Image`, `Visible`) VALUE (?, ?, ?, ?, ?, ?)";
+						$stmt=$this->getDbh()->prepare($sql);
+						$stmt->execute(array($create_Bludo_name, $create_Id_razdel, $create_Calorii, $create_Price, $create_Image, $create_Visible));
+						
+						return true;
+					}
+		else
+		{
+			echo "Пропущена!";
+		}
+		header('Location: http://localhost/Project/index.php/dish/dish');
+  		exit;	
+	}
+
+}
+
+?>

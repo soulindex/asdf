@@ -1,0 +1,90 @@
+<?php
+/**
+ *ProductModel
+ *
+ *Класс ProductModel содержит функции используемые в контроллере ProductControllers
+ */
+Class ProductModel extends Dbh
+{
+	/**
+ 	*function ProductModel
+ 	*
+ 	*инициирует значение динамической перменной rows
+ 	*/
+	public function ProductModel()
+	{
+		parent::Dbh('produkti');
+	}
+	/**
+ 	*p_add_row
+ 	*
+ 	*добовляет новую строку в таблице producti и заполняет её значениями
+ 	*/	
+	public function p_add_row()
+	{
+
+		
+			if( !empty($_REQUEST['add_Name_produkt'])
+				AND !empty($_REQUEST['add_Kolichestvo'])
+					AND !empty($_REQUEST['add_Kalorii'])
+						AND !empty($_REQUEST['add_Id_podacategory'])
+							AND !empty($_REQUEST['add_Srok_postavki'])
+								AND !empty($_REQUEST['add_Srok_godnosty'])
+									AND !empty($_REQUEST['add_Srok_realisats'])
+										AND !empty($_REQUEST['add_Uslovia'])
+											AND !empty($_REQUEST['add_Id_postavshik']))
+		{
+
+			
+			$add_Name_produkt=$_REQUEST['add_Name_produkt'];
+			$add_Kolichestvo=$_REQUEST['add_Kolichestvo'];
+			$add_Kalorii=$_REQUEST['add_Kalorii'];
+			$add_Id_podacategory=$_REQUEST['add_Id_podacategory'];
+			$add_Srok_postavki=$_REQUEST['add_Srok_postavki'];
+			$add_Srok_godnosty=$_REQUEST['add_Srok_godnosty'];
+			$add_Srok_realisats=$_REQUEST['add_Srok_realisats'];
+			$add_Uslovia=$_REQUEST['add_Uslovia'];
+			$add_Id_postavshik=$_REQUEST['add_Id_postavshik'];
+
+			$sql = "INSERT INTO produkti(`Name_produkt`,`Kolichestvo`,`Kalorii`,`Id_podacategory`,`Srok_postavki`,`Srok_godnosty`,`Srok_realisats`,`Uslovia`,`Id_postavshik`)
+			VALUE (?,?,?,?,?,?,?,?,?)";
+			$stmt=$this->getDbh()->prepare($sql);
+			$stmt->execute(array($add_Name_produkt,$add_Id_podacategory,$add_Kolichestvo,$add_Kalorii,$add_Srok_postavki,$add_Srok_godnosty,$add_Srok_realisats,$add_Uslovia,$add_Id_postavshik));
+			return true;
+
+		}
+		else
+		{
+			echo "Пропущена";
+		}
+	header('Location: http://localhost/Project/index.php/product/admin');
+  	exit;
+	}
+	/**
+ 	*update_row_by_id
+ 	*
+ 	*изменяет значение ячеек в таблице producti
+ 	*/
+	public function update_row_by_id()
+	{
+
+		$Id_product=$_REQUEST['Id_product'];
+		$update_Name_produkt=$_REQUEST['update_Name_produkt'];
+		$update_Kolichestvo=$_REQUEST['update_Kolichestvo'];
+		$update_Kalorii=$_REQUEST['update_Kalorii'];
+		$update_Id_podacategory=$_REQUEST['update_Id_podacategory'];
+		$update_Srok_postavki=$_REQUEST['update_Srok_postavki'];
+		$update_Srok_godnosty=$_REQUEST['update_Srok_godnosty'];
+		$update_Srok_realisats=$_REQUEST['update_Srok_realisats'];
+		$update_Uslovia=$_REQUEST['update_Uslovia'];
+		$update_Id_postavshik=$_REQUEST['update_Id_postavshik'];
+
+		$sql ="UPDATE `produkti` SET `Name_produkt`=?,`Kolichestvo`=?,`Kalorii`=?,`Id_podacategory`=?,`Srok_postavki`=?,`Srok_godnosty`=?,`Srok_realisats`=?,`Uslovia`=?,`Id_postavshik`=? WHERE `Id_product`=?";		
+		$stmt=$this->getDbh()->prepare($sql);
+		$stmt->execute(array($update_Name_produkt, $update_Kolichestvo, $update_Kalorii, $update_Id_podacategory, $update_Srok_postavki, $update_Srok_godnosty, $update_Srok_realisats, $update_Uslovia, $update_Id_postavshik, $Id_product));
+		header('Location: http://localhost/Project/index.php/product/admin');
+  		exit;
+	}
+}
+
+?>

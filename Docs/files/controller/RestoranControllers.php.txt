@@ -1,0 +1,32 @@
+<?php
+/**
+ * Class RestoranControllers
+ *
+ * содержит ряд активируемых функций
+ */
+Class RestoranControllers
+{
+	function restoran_main_action()
+	{
+		require 'view/template/restoran/main.php';
+	}
+	function restoran_contact_action()
+	{
+		require 'view/template/restoran/contact.php';
+	}
+	/**
+ 	* function restoran_menu_action()
+ 	*
+ 	* запоминает значение из соответсвующих таблиц для вывода на главную страницу
+ 	*/	
+	function restoran_menu_action()
+	{
+		$row_Model= new RestoranModel();
+		$rows =$row_Model->get_all_rows();
+		$rowsc =$row_Model->get_all_rowsc();
+		$rowsd =$row_Model->get_all_rowsd();
+		$rowsp= $row_Model->get_all_rowsp();
+		require 'view/template/restoran/menu.php';
+	}
+}
+?>

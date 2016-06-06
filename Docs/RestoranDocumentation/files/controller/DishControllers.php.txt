@@ -1,0 +1,49 @@
+<?php
+Class DishControllers
+{
+	function p_dish_action()
+	{
+		$row_Model= new DishModel();
+		$rows =$row_Model->get_all_rows();
+		$rowsd = $row_Model->get_all_rowsd();
+		$rowsp= $row_Model->get_all_rowsp();
+		require 'view/template/dish/dish.php';
+	}
+	function p_showeditdish_action($Id_bludo)
+	{
+		$row_Model=new DishModel();
+		$row=$row_Model->get_rows_by_id_dish($Id_bludo);
+		require"view/template/dish/editdish.php";
+	}	
+	function d_update_action() 
+	{
+		$row_Model=new DishModel();
+		$row_Model->update_dish();
+		$rows=$row_Model->get_all_rows();
+		require 'view/template/dish/editdish.php';
+	}
+	function d_createshow_action() 
+	{
+		$row_Model=new DishModel();		
+		$rows=$row_Model->get_all_rows();
+		require 'view/template/dish/createdish.php';
+	}
+	function d_create_action() 
+	{
+		$row_Model=new DishModel();
+		$row_Model->add_dish();
+		$rows=$row_Model->get_all_rows();
+		$rowsd = $row_Model->get_all_rowsd();
+		$rowsp= $row_Model->get_all_rowsp();
+		require 'view/template/dish/dish.php';
+	}
+	function d_delete_action($Id_bludo)
+	{
+		$row_Model=new DishModel();
+		$row_Model->delete_rows($Id_bludo);
+		$rows=$row_Model->get_all_rows();
+		require 'view/template/dish/dish.php';
+	}
+
+}
+?>
